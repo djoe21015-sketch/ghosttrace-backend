@@ -1,0 +1,180 @@
+/* ============================
+   GhostTrace MAX PRO — Full Theme
+   ============================ */
+
+/* Global */
+body {
+    background: #0b0b0b;
+    color: #e6e6e6;
+    font-family: Arial, Helvetica, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+/* Navigation */
+.nav {
+    background: #111;
+    padding: 15px 25px;
+    border-bottom: 2px solid #00aaff;
+    display: flex;
+    gap: 25px;
+}
+
+.nav a {
+    color: #00aaff;
+    text-decoration: none;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.nav a:hover {
+    color: #33cfff;
+}
+
+/* Container */
+.container {
+    padding: 40px;
+    max-width: 1100px;
+    margin: auto;
+}
+
+/* Headings */
+h1, h2, h3, h4 {
+    color: #00aaff;
+    margin-bottom: 15px;
+}
+
+/* Buttons */
+.btn {
+    background: #00aaff;
+    padding: 12px 20px;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 6px;
+    margin-right: 10px;
+    display: inline-block;
+    font-weight: bold;
+    transition: 0.2s;
+}
+
+.btn:hover {
+    background: #0088cc;
+}
+
+/* Forms */
+form input[type="text"] {
+    width: 350px;
+    padding: 12px;
+    border-radius: 6px;
+    border: 1px solid #333;
+    background: #1a1a1a;
+    color: #fff;
+    margin-right: 10px;
+}
+
+form button {
+    padding: 12px 20px;
+    background: #00aaff;
+    border: none;
+    border-radius: 6px;
+    color: #fff;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+form button:hover {
+    background: #0088cc;
+}
+
+/* Tables */
+table {
+    width: 100%;
+    background: #111;
+    border-collapse: collapse;
+    margin-top: 20px;
+    border-radius: 6px;
+    overflow: hidden;
+}
+
+table th {
+    background: #0f0f0f;
+    color: #00aaff;
+    padding: 12px;
+    border-bottom: 2px solid #00aaff;
+}
+
+table td {
+    padding: 12px;
+    border-bottom: 1px solid #222;
+}
+
+table tr:hover {
+    background: #1a1a1a;
+}
+
+/* JSON Blocks */
+pre {
+    background: #0f0f0f;
+    padding: 15px;
+    border-radius: 6px;
+    border: 1px solid #222;
+    overflow-x: auto;
+    color: #e6e6e6;
+}
+
+/* Action Buttons */
+.actions {
+    margin: 20px 0;
+}
+
+/* Links */
+table a {
+    color: #00aaff;
+    text-decoration: none;
+}
+
+table a:hover {
+    color: #33cfff;
+}
+
+/* Cards */
+.card {
+    background: #111;
+    padding: 20px;
+    border-radius: 10px;
+    border: 1px solid #222;
+    margin-bottom: 20px;
+}
+
+/* Risk Badge */
+.risk-badge {
+    display: inline-block;
+    padding: 10px 15px;
+    border-radius: 6px;
+    font-weight: bold;
+    color: #fff;
+    margin-bottom: 20px;
+}
+
+.risk-low {
+    background: #4CAF50;
+}
+
+.risk-medium {
+    background: #FFC107;
+    color: #000;
+}
+
+.risk-high {
+    background: #F44336;
+}
+
+/* Footer */
+.footer {
+    text-align: center;
+    padding: 20px;
+    color: #666;
+    margin-top: 40px;
+    border-top: 1px solid #222;
+}

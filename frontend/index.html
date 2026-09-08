@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>GhostTrace MAX — Automated OSINT Intelligence Reports</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+body { font-family: Arial, sans-serif; background:#0d0d0d; color:white; margin:0; }
+header { padding:40px; text-align:center; }
+h1 { font-size:48px; margin-bottom:10px; }
+p { font-size:20px; color:#ccc; }
+section { padding:40px; max-width:900px; margin:auto; }
+button {
+  background:#ff3b3b; border:none; padding:18px 40px;
+  font-size:22px; border-radius:8px; cursor:pointer; color:white;
+}
+.features { display:flex; flex-wrap:wrap; gap:20px; margin-top:40px; }
+.card {
+  background:#1a1a1a; padding:20px; border-radius:10px; flex:1; min-width:250px;
+}
+footer { text-align:center; padding:20px; color:#777; }
+input {
+  padding:10px;
+  margin:5px;
+  width:250px;
+  border-radius:6px;
+  border:none;
+}
+</style>
+</head>
+<body>
+
+<header>
+  <h1>GhostTrace MAX</h1>
+  <p>Automated OSINT Intelligence Reports for Businesses, Agencies, and Investigators.</p>
+
+  <button onclick="buyPlan('price_1U92s8QcBIIZXfeMWboTdXjL')">
+    Start Now — $29/mo
+  </button>
+</header>
+
+<section>
+  <h2>Choose Your Plan</h2>
+  <div class="features">
+
+    <div class="card">
+      <h3>Basic</h3>
+      <p>$29/mo — Perfect for individuals and small investigations.</p>
+      <button onclick="buyPlan('price_1U92s8QcBIIZXfeMWboTdXjL')">Choose Basic</button>
+    </div>
+
+    <div class="card">
+      <h3>Pro</h3>
+      <p>$59/mo — More scans, deeper intel, business‑grade reporting.</p>
+      <button onclick="buyPlan('price_1U9JkZQcBIIZXfeMjwDT1meU')">Choose Pro</button>
+    </div>
+
+    <div class="card">
+      <h3>Ultra</h3>
+      <p>$99/mo — Unlimited scans, API access, full automation.</p>
+      <button onclick="buyPlan('price_1U9JmyQcBIIZXfeMcyR9azlP')">Choose Ultra</button>
+    </div>
+
+    <div class="card">
+      <h3>Enterprise</h3>
+      <p>Custom pricing — Agencies, corporations, high‑volume OSINT.</p>
+      <button onclick="buyPlan('price_1U9L1PQcBIIZXfeMcvoIvK7w')">Enterprise</button>
+    </div>
+
+  </div>
+</section>
+
+<section>
+  <h2>Account</h2>
+
+  <div style="margin-bottom:20px;">
+    <input id="reg_email" placeholder="Email">
+    <input id="reg_pass" placeholder="Password" type="password">
+    <button onclick="register()">Register</button>
+  </div>
+
+  <div>
+    <input id="log_email" placeholder="Email">
+    <input id="log_pass" placeholder="Password" type="password">
+    <button onclick="login()">Login</button>
+  </div>
+
+  <p id="auth_status"></p>
+</section>
+
+<section>
+  <h2>Try a Free Scan</h2>
+  <p>Enter a domain or email and see GhostTrace MAX in action.</p>
+  <button onclick="window.location.href='/free-scan'">Run Free Scan</button>
+</section>
+
+<footer>
+  GhostTrace MAX © 2026 — Cyber Intelligence Automation
+</footer>
+
+<script>
+let token = localStorage.getItem("token") || null;
+
+async function register() {
+    const email = document.getElementById("reg_email").value;
+    const pass = document.getElementById("reg_pass").value;
+
+    const res = await fetch("/register", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, password: pass })
+    });
+
+    document.getElementById("auth_status").innerText = "Registered.";
+}
+
+async function login() {
+    const email = document.getElementById("log_email").value;
+    const pass = document.getElementById("log_pass").value;
+
+    const res = await fetch("/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, password: pass })
+    });
+
+    const data = await res.json();
+    token = data.token;
+    localStorage.setItem("token", token);
+
+    document.getElementById("auth_status").innerText = "Logged in.";
+}
+
+async function buyPlan(planId) {
+    if (!token) {
+        alert("Login first.");
+        return;
+    }
+
+    const response = await fetch("/create-checkout-session", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+            "Authorization": "Bearer " + token
+        },
+        body: JSON.stringify({ plan_id: planId })
+    });
+
+    const data = await response.json();
+    window.location.href = data.checkout_url;
+}
+</script>
+
+</body>
+</html>
+

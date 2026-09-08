@@ -1,0 +1,34 @@
+===========================
+= templates/history.html
+===========================
+{% extends "base.html" %}
+{% block content %}
+<h2>Scan History</h2>
+
+<table>
+    <tr>
+        <th>ID</th>
+        <th>Target</th>
+        <th>Risk</th>
+        <th>Date</th>
+        <th>View</th>
+    </tr>
+
+    {% for s in scans %}
+    <tr>
+        <td>{{ s.id }}</td>
+        <td>{{ s.target }}</td>
+        <td>{{ s.risk }}</td>
+        <td>{{ s.created_at }}</td>
+        <td><a href="/report/{{ s.id }}">Open</a></td>
+    </tr>
+    {% endfor %}
+</table>
+
+<h3>Schedule Auto‑Scan</h3>
+<form method="POST" action="/schedule">
+    <input type="text" name="target" placeholder="Target to auto‑scan">
+    <button type="submit">Schedule</button>
+</form>
+
+{% endblock %}

@@ -1,0 +1,9 @@
+{
+  "dependencies": {
+    "dns": "^0.2.2",
+    "net": "^1.0.2",
+    "node-fetch": "^3.3.2",
+    "tls": "^0.0.1",
+    "wappalyzer": "^7.0.3"
+  }
+}

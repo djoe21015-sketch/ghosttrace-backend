@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>GhostTrace Dashboard</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background: #111;
+        color: white;
+        margin: 0;
+        padding: 0;
+    }
+    header {
+        background: #1a1a1a;
+        padding: 20px;
+        text-align: center;
+    }
+    h2 {
+        margin: 0;
+    }
+    section {
+        padding: 20px;
+    }
+    input {
+        width: 300px;
+        padding: 12px;
+        font-size: 18px;
+        border-radius: 6px;
+        border: none;
+        margin-right: 10px;
+    }
+    button {
+        padding: 12px 20px;
+        font-size: 18px;
+        border-radius: 6px;
+        border: none;
+        background: #ff3b3b;
+        color: white;
+        cursor: pointer;
+    }
+    #output {
+        margin-top: 20px;
+        background: #000;
+        padding: 20px;
+        border-radius: 10px;
+        white-space: pre-wrap;
+        font-size: 14px;
+    }
+</style>
+</head>
+<body>
+
+<header>
+    <h2>GhostTrace MAX Dashboard</h2>
+</header>
+
+<section>
+    <h3>Run OSINT Scan</h3>
+    <input id="target" placeholder="Enter domain, email, or IP">
+    <button onclick="runScan()">Scan</button>
+
+    <div id="output"></div>
+</section>
+
+<script>
+async function runScan() {
+    const target = document.getElementById('target').value;
+
+    const res = await fetch('http://127.0.0.1:8000/osint/run', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({ target })
+    });
+
+    const data = await res.json();
+    document.getElementById('output').innerText = JSON.stringify(data, null, 2);
+}
+</script>
+
+</body>
+</html>

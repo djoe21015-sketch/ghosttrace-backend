@@ -1,0 +1,13 @@
+===========================
+= templates/index.html
+===========================
+{% extends "base.html" %}
+{% block content %}
+<h1>GhostTrace MAX Dashboard</h1>
+<p>Run OSINT scans, view reports, and manage automation.</p>
+
+<div class="actions">
+    <a class="btn" href="/scan">Run a Scan</a>
+    <a class="btn" href="/history">View History</a>
+</div>
+{% endblock %}

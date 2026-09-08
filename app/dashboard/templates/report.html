@@ -1,0 +1,22 @@
+===========================
+= templates/report.html
+===========================
+{% extends "base.html" %}
+{% block content %}
+<h2>Report for {{ scan.target }}</h2>
+
+<p><strong>Risk:</strong> {{ scan.risk }}</p>
+<p><strong>Date:</strong> {{ scan.created_at }}</p>
+
+<div class="actions">
+    <a class="btn" href="/report/{{ scan.id }}/json">Download JSON</a>
+    <a class="btn" href="/report/{{ scan.id }}/pdf">Download PDF</a>
+</div>
+
+<h3>Modules</h3>
+{% for name, data in scan.modules.items() %}
+    <h4>{{ name }}</h4>
+    <pre>{{ data | tojson(indent=4) }}</pre>
+{% endfor %}
+
+{% endblock %}

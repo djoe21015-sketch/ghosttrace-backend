@@ -1,0 +1,13 @@
+from app.engine.engine import run_engine
+from app.core.detector import process_target
+
+def run_scan(target):
+    """
+    Full scan pipeline:
+    - process target (detect type)
+    - run engine
+    - return final result
+    """
+    processed = process_target(target.id)
+    result = run_engine(target)
+    return result

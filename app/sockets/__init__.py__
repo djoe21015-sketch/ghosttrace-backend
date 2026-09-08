@@ -1,0 +1,2 @@
+# Make sockets a proper Python package
+from .websocket import router

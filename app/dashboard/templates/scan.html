@@ -1,0 +1,18 @@
+===========================
+= templates/scan.html
+===========================
+@app.route("/")
+def index():
+	if "user" not in session:
+		return redirect("/login")
+	return render_template("index.html")
+
+{% extends "base.html" %}
+{% block content %}
+<h2>Run a Scan</h2>
+
+<form method="POST">
+    <input type="text" name="target" placeholder="Domain or Email" required>
+    <button type="submit">Scan</button>
+</form>
+{% endblock %}
