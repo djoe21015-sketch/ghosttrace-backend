@@ -1,7 +1,13 @@
-def generate_report(target_id: int, metadata: dict, correlations: dict, risk: dict):
+def generate_report(target_id: int, raw: dict, metadata: dict, correlations: dict, risk: dict):
     lines = []
     lines.append(f"GhostTrace Report for Target {target_id}")
     lines.append("=" * 50)
+    lines.append("")
+
+    # Raw section
+    lines.append("Raw Data:")
+    for key, value in raw.items():
+        lines.append(f"  {key}: {value}")
     lines.append("")
 
     # Metadata section
@@ -25,3 +31,4 @@ def generate_report(target_id: int, metadata: dict, correlations: dict, risk: di
     lines.append("")
 
     return "\n".join(lines)
+
