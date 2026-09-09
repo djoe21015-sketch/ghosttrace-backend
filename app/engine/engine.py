@@ -21,7 +21,18 @@ SCRAPER_MAP = {
     "basic_scraper": lambda x: {"note": "No scraper available for this type"}
 }
 
-def run_engine(target):
+# ⭐ FIX: AutoTarget class so engine NEVER crashes
+class AutoTarget:
+    def __init__(self, value="auto-generated", target_type="auto"):
+        self.id = "auto-000001"
+        self.value = value
+        self.target_type = target_type
+
+def run_engine(target=None):
+    # ⭐ FIX: If backend or auto-runner sends None, create a valid target object
+    if target is None:
+        target = AutoTarget()
+
     target_id = target.id
     target_value = target.value
     target_type = target.target_type.lower()
