@@ -43,6 +43,15 @@ from app.engine.leadfinder import find_leads
 scheduler.add_job(find_leads, "interval", hours=6)
 scheduler.start()
 
+from app.engine.webhook import send_alert
+
+def auto_cycle():
+    leads = find_leads()
+    send_alert(f"GhostTrace found {len(leads)} new leads.")
+    for lead in leads:
+        run_engine(lead)
+scheduler.add_job(auto_cycle, "interval", hours=12)
+
 # Render requires binding to PORT env var
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 10000))
