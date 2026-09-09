@@ -34,6 +34,15 @@ def run_engine_endpoint():
     except Exception as e:
         return {"error": str(e)}
 
+from apscheduler.schedulers.background import BackgroundScheduler
+from app.engine.engine import run_engine
+
+scheduler = BackgroundScheduler()
+scheduler.add_job(run_engine, "interval", minutes=30)
+from app.engine.leadfinder import find_leads
+scheduler.add_job(find_leads, "interval", hours=6)
+scheduler.start()
+
 # Render requires binding to PORT env var
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 10000))
