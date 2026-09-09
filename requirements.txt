@@ -55,3 +55,4 @@ weasyprint==69.0
 webencodings==0.6.1
 Werkzeug==3.1.8
 zopfli==0.4.3
+APScheduler==3.10.4
