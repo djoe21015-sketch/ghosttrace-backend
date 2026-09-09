@@ -4,8 +4,7 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
 # Import your engine
-# This matches your folder structure:
-# GhostTrace/app/engine/engine.py
+# Adjust this if your engine file is somewhere else
 from app.engine.engine import run_engine
 
 app = FastAPI()
@@ -19,16 +18,15 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# Root endpoint
 @app.get("/")
 def root():
     return {"status": "GhostTrace backend running"}
 
-# Engine endpoint
 @app.get("/run-engine")
 def run_engine_endpoint():
     try:
-        result = run_engine()
+        # Call run_engine with NO required argument
+        result = run_engine(None)
         return {"result": result}
     except Exception as e:
         return {"error": str(e)}
@@ -37,3 +35,4 @@ def run_engine_endpoint():
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 10000))
     uvicorn.run(app, host="0.0.0.0", port=port)
+
