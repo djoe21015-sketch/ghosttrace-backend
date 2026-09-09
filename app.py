@@ -2,12 +2,15 @@ import os
 import uvicorn
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+from app.routers import status
 
 # Import your engine
 # Adjust this if your engine file is somewhere else
 from app.engine.engine import run_engine
 
 app = FastAPI()
+
+app.include_router(status.router, prefix="/status", tags=["status"])
 
 # CORS (optional but recommended)
 app.add_middleware(
