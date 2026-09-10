@@ -4,15 +4,12 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from app.routers import status
 
-# Import your engine
-# Adjust this if your engine file is somewhere else
 from app.engine.engine import run_engine
 
 app = FastAPI()
 
 app.include_router(status.router, prefix="/status", tags=["status"])
 
-# CORS (optional but recommended)
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],
@@ -28,32 +25,40 @@ def root():
 @app.get("/run-engine")
 def run_engine_endpoint():
     try:
-        # Call run_engine with NO required argument
         result = run_engine(None)
         return {"result": result}
     except Exception as e:
         return {"error": str(e)}
 
+# ============================
+# AUTOMATION BLOCK (CLEAN)
+# ============================
+
 from apscheduler.schedulers.background import BackgroundScheduler
-from app.engine.engine import run_engine
-
-scheduler = BackgroundScheduler()
-scheduler.add_job(run_engine, "interval", minutes=30)
 from app.engine.leadfinder import find_leads
-scheduler.add_job(find_leads, "interval", hours=6)
-scheduler.start()
-
 from app.engine.webhook import send_alert
+from app.engine.reportgen import generate_report
 
 def auto_cycle():
     leads = find_leads()
     send_alert(f"GhostTrace found {len(leads)} new leads.")
+    
     for lead in leads:
-        run_engine(lead)
-scheduler.add_job(auto_cycle, "interval", hours=12)
+        result = run_engine(lead)
+        report_file = generate_report(result)
+        if report_file:
+            send_alert(f"New report generated: {report_file}")
 
-# Render requires binding to PORT env var
+scheduler = BackgroundScheduler()
+scheduler.add_job(run_engine, "interval", minutes=30)
+scheduler.add_job(find_leads, "interval", hours=6)
+scheduler.add_job(auto_cycle, "interval", hours=12)
+scheduler.start()
+
+# ============================
+
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 10000))
     uvicorn.run(app, host="0.0.0.0", port=port)
+
 
